@@ -1,0 +1,49 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum PlanType {
+  BASIC
+  CORE
+  ADVANCED
+  PRO
+}
+
+enum SubscriptionStatus {
+  ACTIVE
+  CANCELED
+  PAST_DUE
+  INCOMPLETE
+  INCOMPLETE_EXPIRED
+  TRIALING
+  UNPAID
+}
+
+model User {
+  id              String            @id @default(uuid())
+  email           String            @unique
+  oauthId         String            @unique
+  username        String?
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  
+  subscriptioStartDate DateTime?
+  subscriptionEndDate DateTime?
+  subscriptionStatus SubscriptionStatus @default(UNPAID)
+  planType        PlanType          @default(BASIC)
+
+  // Usage tracking
+  messagesUsed    Int              @default(0)
+  documentsUsed   Int              @default(0)
+
+  messageLeft     Int              @default(20) // Monthly message limit
+  documentLeft    Int              @default(0)  // Monthly document limit
+
+}
+
+
