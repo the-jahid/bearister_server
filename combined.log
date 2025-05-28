@@ -456,3 +456,113 @@
 {"level":"info","message":"SIGINT received: initiating graceful shutdown","timestamp":"2025-05-27T16:28:51.207Z"}
 {"level":"info","message":"HTTP server closed","timestamp":"2025-05-27T16:28:51.208Z"}
 {"level":"info","message":"Prisma database connection closed","timestamp":"2025-05-27T16:28:51.214Z"}
+{"level":"info","message":"Successfully connected to PostgreSQL via Prisma","timestamp":"2025-05-27T16:52:51.495Z"}
+{"environment":"development","level":"info","message":"Server started successfully","port":"5000","timestamp":"2025-05-27T16:52:51.498Z"}
+{"level":"info","message":"SIGINT received: initiating graceful shutdown","timestamp":"2025-05-27T17:54:16.019Z"}
+{"level":"info","message":"HTTP server closed","timestamp":"2025-05-27T17:54:16.021Z"}
+{"level":"info","message":"Prisma database connection closed","timestamp":"2025-05-27T17:54:16.029Z"}
+{"level":"info","message":"Successfully connected to PostgreSQL via Prisma","timestamp":"2025-05-28T06:27:48.448Z"}
+{"environment":"development","level":"info","message":"Server started successfully","port":"5000","timestamp":"2025-05-28T06:27:48.452Z"}
+{"level":"info","message":{"duration":"2ms","ip":"::1","method":"GET","path":"/api/chat//api/v1/users/3a419732-e74d-439a-bb05-bd1927d52681/usage","status":400},"timestamp":"2025-05-28T06:29:20.105Z"}
+{"level":"info","message":"Successfully connected to PostgreSQL via Prisma","timestamp":"2025-05-28T13:26:17.578Z"}
+{"environment":"development","level":"info","message":"Server started successfully","port":"5000","timestamp":"2025-05-28T13:26:17.582Z"}
+{"level":"info","message":{"duration":"2680ms","ip":"::1","method":"GET","path":"/api/v1/users/user_2xgnBAYKxKMxR4gtThXitqHOQr4","status":200},"timestamp":"2025-05-28T13:48:28.948Z"}
+{"level":"info","message":{"duration":"484ms","ip":"::1","method":"GET","path":"/api/v1/users/user_2xgnBAYKxKMxR4gtThXitqHOQr","status":404},"timestamp":"2025-05-28T13:49:52.634Z"}
+{"level":"info","message":{"duration":"246ms","ip":"::1","method":"GET","path":"/api/v1/users/user_2xgnBAYKxKMxR4gtThXitqHOQr4","status":200},"timestamp":"2025-05-28T13:49:56.456Z"}
+{"level":"info","message":"Successfully connected to PostgreSQL via Prisma","timestamp":"2025-05-28T13:54:17.291Z"}
+{"environment":"development","level":"info","message":"Server started successfully","port":"5000","timestamp":"2025-05-28T13:54:17.294Z"}
+{"level":"info","message":"Successfully connected to PostgreSQL via Prisma","timestamp":"2025-05-28T13:54:26.625Z"}
+{"environment":"development","level":"info","message":"Server started successfully","port":"5000","timestamp":"2025-05-28T13:54:26.628Z"}
+{"level":"info","message":{"duration":"2471ms","ip":"::1","method":"PATCH","path":"/api/v1/users/user_2xgnBAYKxKMxR4gtThXitqHOQr4","status":200},"timestamp":"2025-05-28T13:57:25.492Z"}
+{"level":"info","message":"Successfully connected to PostgreSQL via Prisma","timestamp":"2025-05-28T13:58:35.412Z"}
+{"environment":"development","level":"info","message":"Server started successfully","port":"5000","timestamp":"2025-05-28T13:58:35.416Z"}
+{"level":"info","message":"Successfully connected to PostgreSQL via Prisma","timestamp":"2025-05-28T13:58:39.144Z"}
+{"environment":"development","level":"info","message":"Server started successfully","port":"5000","timestamp":"2025-05-28T13:58:39.147Z"}
+{"level":"info","message":"Successfully connected to PostgreSQL via Prisma","timestamp":"2025-05-28T13:59:05.605Z"}
+{"environment":"development","level":"info","message":"Server started successfully","port":"5000","timestamp":"2025-05-28T13:59:05.608Z"}
+{"level":"info","message":"Successfully connected to PostgreSQL via Prisma","timestamp":"2025-05-28T13:59:15.630Z"}
+{"environment":"development","level":"info","message":"Server started successfully","port":"5000","timestamp":"2025-05-28T13:59:15.633Z"}
+{"level":"info","message":"Successfully connected to PostgreSQL via Prisma","timestamp":"2025-05-28T14:01:50.518Z"}
+{"environment":"development","level":"info","message":"Server started successfully","port":"5000","timestamp":"2025-05-28T14:01:50.521Z"}
+{"level":"info","message":"Successfully connected to PostgreSQL via Prisma","timestamp":"2025-05-28T14:04:43.965Z"}
+{"environment":"development","level":"info","message":"Server started successfully","port":"5000","timestamp":"2025-05-28T14:04:43.968Z"}
+{"level":"info","message":{"duration":"2004ms","ip":"::1","method":"GET","path":"/api/v1/users/user_2xgnBAYKxKMxR4gtThXitqHOQr4","status":200},"timestamp":"2025-05-28T14:05:13.901Z"}
+{"level":"info","message":"Successfully connected to PostgreSQL via Prisma","timestamp":"2025-05-28T14:05:28.620Z"}
+{"environment":"development","level":"info","message":"Server started successfully","port":"5000","timestamp":"2025-05-28T14:05:28.623Z"}
+{"level":"info","message":{"duration":"1982ms","ip":"::1","method":"GET","path":"/api/v1/users/user_2xgnBAYKxKMxR4gtThXitqHOQr4","status":200},"timestamp":"2025-05-28T14:05:31.290Z"}
+{"level":"info","message":"Successfully connected to PostgreSQL via Prisma","timestamp":"2025-05-28T14:06:51.258Z"}
+{"environment":"development","level":"info","message":"Server started successfully","port":"5000","timestamp":"2025-05-28T14:06:51.261Z"}
+{"level":"info","message":"Successfully connected to PostgreSQL via Prisma","timestamp":"2025-05-28T14:06:55.570Z"}
+{"environment":"development","level":"info","message":"Server started successfully","port":"5000","timestamp":"2025-05-28T14:06:55.572Z"}
+{"level":"info","message":"Successfully connected to PostgreSQL via Prisma","timestamp":"2025-05-28T14:06:59.150Z"}
+{"environment":"development","level":"info","message":"Server started successfully","port":"5000","timestamp":"2025-05-28T14:06:59.152Z"}
+{"level":"info","message":"Successfully connected to PostgreSQL via Prisma","timestamp":"2025-05-28T14:07:11.262Z"}
+{"environment":"development","level":"info","message":"Server started successfully","port":"5000","timestamp":"2025-05-28T14:07:11.265Z"}
+{"level":"info","message":{"duration":"3150ms","ip":"::1","method":"PATCH","path":"/api/v1/users/user_2xgnBAYKxKMxR4gtThXitqHOQr4","status":200},"timestamp":"2025-05-28T14:08:35.717Z"}
+{"level":"info","message":{"duration":"2088ms","ip":"::1","method":"PATCH","path":"/api/v1/users/user_2xgnBAYKxKMxR4gtThXitqHOQr4","status":500},"timestamp":"2025-05-28T14:14:58.651Z"}
+{"level":"info","message":{"duration":"465ms","ip":"::1","method":"PATCH","path":"/api/v1/users/user_2xgnBAYKxKMxR4gtThXitqHOQr4","status":500},"timestamp":"2025-05-28T14:15:31.984Z"}
+{"level":"info","message":"Successfully connected to PostgreSQL via Prisma","timestamp":"2025-05-28T14:15:42.569Z"}
+{"environment":"development","level":"info","message":"Server started successfully","port":"5000","timestamp":"2025-05-28T14:15:42.572Z"}
+{"level":"info","message":{"duration":"2011ms","ip":"::1","method":"PATCH","path":"/api/v1/users/user_2xgnBAYKxKMxR4gtThXitqHOQr4","status":500},"timestamp":"2025-05-28T14:15:47.561Z"}
+{"level":"info","message":"Successfully connected to PostgreSQL via Prisma","timestamp":"2025-05-28T14:16:53.177Z"}
+{"environment":"development","level":"info","message":"Server started successfully","port":"5000","timestamp":"2025-05-28T14:16:53.181Z"}
+{"level":"info","message":"Successfully connected to PostgreSQL via Prisma","timestamp":"2025-05-28T14:17:02.867Z"}
+{"environment":"development","level":"info","message":"Server started successfully","port":"5000","timestamp":"2025-05-28T14:17:02.869Z"}
+{"level":"info","message":"Successfully connected to PostgreSQL via Prisma","timestamp":"2025-05-28T14:17:42.460Z"}
+{"environment":"development","level":"info","message":"Server started successfully","port":"5000","timestamp":"2025-05-28T14:17:42.462Z"}
+{"level":"info","message":"Successfully connected to PostgreSQL via Prisma","timestamp":"2025-05-28T14:17:44.846Z"}
+{"environment":"development","level":"info","message":"Server started successfully","port":"5000","timestamp":"2025-05-28T14:17:44.849Z"}
+{"level":"info","message":"Successfully connected to PostgreSQL via Prisma","timestamp":"2025-05-28T14:20:31.730Z"}
+{"environment":"development","level":"info","message":"Server started successfully","port":"5000","timestamp":"2025-05-28T14:20:31.733Z"}
+{"level":"info","message":{"duration":"2407ms","ip":"::1","method":"PATCH","path":"/api/v1/users/user_2xgnBAYKxKMxR4gtThXitqHOQr4","status":200},"timestamp":"2025-05-28T14:20:54.917Z"}
+{"level":"error","message":"Unexpected token '\"', \"\"increment\"... is not valid JSON","method":"PATCH","path":"/api/v1/users/user_2xgnBAYKxKMxR4gtThXitqHOQr4","stack":"SyntaxError: Unexpected token '\"', \"\"increment\"... is not valid JSON\n    at JSON.parse (<anonymous>)\n    at createStrictSyntaxError (E:\\bearister_server\\node_modules\\body-parser\\lib\\types\\json.js:169:10)\n    at parse (E:\\bearister_server\\node_modules\\body-parser\\lib\\types\\json.js:86:15)\n    at E:\\bearister_server\\node_modules\\body-parser\\lib\\read.js:128:18\n    at AsyncResource.runInAsyncScope (node:async_hooks:211:14)\n    at invokeCallback (E:\\bearister_server\\node_modules\\raw-body\\index.js:238:16)\n    at done (E:\\bearister_server\\node_modules\\raw-body\\index.js:227:7)\n    at IncomingMessage.onEnd (E:\\bearister_server\\node_modules\\raw-body\\index.js:287:7)\n    at IncomingMessage.emit (node:events:518:28)\n    at endReadableNT (node:internal/streams/readable:1698:12)","statusCode":500,"timestamp":"2025-05-28T14:21:22.488Z"}
+{"level":"info","message":{"duration":"1018ms","ip":"::1","method":"PATCH","path":"/api/v1/users/user_2xgnBAYKxKMxR4gtThXitqHOQr4","status":200},"timestamp":"2025-05-28T14:21:28.971Z"}
+{"level":"info","message":{"duration":"485ms","ip":"::1","method":"PATCH","path":"/api/v1/users/user_2xgnBAYKxKMxR4gtThXitqHOQr4","status":200},"timestamp":"2025-05-28T14:21:33.686Z"}
+{"level":"info","message":{"duration":"496ms","ip":"::1","method":"PATCH","path":"/api/v1/users/user_2xgnBAYKxKMxR4gtThXitqHOQr4","status":200},"timestamp":"2025-05-28T14:21:36.525Z"}
+{"level":"info","message":{"duration":"932ms","ip":"::1","method":"PATCH","path":"/api/v1/users/user_2xgnBAYKxKMxR4gtThXitqHOQr4","status":200},"timestamp":"2025-05-28T14:21:51.084Z"}
+{"level":"info","message":"Successfully connected to PostgreSQL via Prisma","timestamp":"2025-05-28T14:27:47.989Z"}
+{"environment":"development","level":"info","message":"Server started successfully","port":"5000","timestamp":"2025-05-28T14:27:47.991Z"}
+{"level":"info","message":"Successfully connected to PostgreSQL via Prisma","timestamp":"2025-05-28T14:27:55.621Z"}
+{"environment":"development","level":"info","message":"Server started successfully","port":"5000","timestamp":"2025-05-28T14:27:55.624Z"}
+{"level":"info","message":"Successfully connected to PostgreSQL via Prisma","timestamp":"2025-05-28T14:32:40.711Z"}
+{"environment":"development","level":"info","message":"Server started successfully","port":"5000","timestamp":"2025-05-28T14:32:40.714Z"}
+{"level":"info","message":{"duration":"2543ms","ip":"::1","method":"PATCH","path":"/api/v1/users/user_2xgnBAYKxKMxR4gtThXitqHOQr4","status":200},"timestamp":"2025-05-28T14:32:52.881Z"}
+{"level":"info","message":{"duration":"715ms","ip":"::1","method":"PATCH","path":"/api/v1/users/user_2xgnBAYKxKMxR4gtThXitqHOQr4","status":200},"timestamp":"2025-05-28T14:33:03.523Z"}
+{"level":"info","message":{"duration":"954ms","ip":"::1","method":"PATCH","path":"/api/v1/users/user_2xgnBAYKxKMxR4gtThXitqHOQr4","status":200},"timestamp":"2025-05-28T14:33:18.992Z"}
+{"level":"info","message":"Successfully connected to PostgreSQL via Prisma","timestamp":"2025-05-28T14:33:58.779Z"}
+{"environment":"development","level":"info","message":"Server started successfully","port":"5000","timestamp":"2025-05-28T14:33:58.782Z"}
+{"level":"info","message":"Successfully connected to PostgreSQL via Prisma","timestamp":"2025-05-28T14:34:19.637Z"}
+{"environment":"development","level":"info","message":"Server started successfully","port":"5000","timestamp":"2025-05-28T14:34:19.640Z"}
+{"level":"info","message":{"duration":"2466ms","ip":"::1","method":"PATCH","path":"/api/v1/users/user_2xgnBAYKxKMxR4gtThXitqHOQr4","status":200},"timestamp":"2025-05-28T14:34:29.846Z"}
+{"level":"info","message":{"duration":"482ms","ip":"::1","method":"PATCH","path":"/api/v1/users/user_2xgnBAYKxKMxR4gtThXitqHOQr4","status":200},"timestamp":"2025-05-28T14:34:37.614Z"}
+{"level":"info","message":"Successfully connected to PostgreSQL via Prisma","timestamp":"2025-05-28T14:36:34.487Z"}
+{"environment":"development","level":"info","message":"Server started successfully","port":"5000","timestamp":"2025-05-28T14:36:34.490Z"}
+{"level":"info","message":{"duration":"1984ms","ip":"::1","method":"PATCH","path":"/api/v1/users/user_2xgnBAYKxKMxR4gtThXitqHOQr4","status":400},"timestamp":"2025-05-28T14:36:37.278Z"}
+{"level":"info","message":{"duration":"244ms","ip":"::1","method":"PATCH","path":"/api/v1/users/user_2xgnBAYKxKMxR4gtThXitqHOQr4","status":400},"timestamp":"2025-05-28T14:36:42.660Z"}
+{"level":"info","message":"Successfully connected to PostgreSQL via Prisma","timestamp":"2025-05-28T14:36:48.477Z"}
+{"environment":"development","level":"info","message":"Server started successfully","port":"5000","timestamp":"2025-05-28T14:36:48.480Z"}
+{"level":"info","message":{"duration":"1949ms","ip":"::1","method":"PATCH","path":"/api/v1/users/user_2xgnBAYKxKMxR4gtThXitqHOQr4","status":400},"timestamp":"2025-05-28T14:36:51.088Z"}
+{"level":"info","message":"Successfully connected to PostgreSQL via Prisma","timestamp":"2025-05-28T14:42:00.737Z"}
+{"environment":"development","level":"info","message":"Server started successfully","port":"5000","timestamp":"2025-05-28T14:42:00.740Z"}
+{"level":"info","message":"Successfully connected to PostgreSQL via Prisma","timestamp":"2025-05-28T14:42:21.614Z"}
+{"environment":"development","level":"info","message":"Server started successfully","port":"5000","timestamp":"2025-05-28T14:42:21.617Z"}
+{"level":"info","message":"Successfully connected to PostgreSQL via Prisma","timestamp":"2025-05-28T14:42:49.290Z"}
+{"environment":"development","level":"info","message":"Server started successfully","port":"5000","timestamp":"2025-05-28T14:42:49.293Z"}
+{"level":"info","message":"Successfully connected to PostgreSQL via Prisma","timestamp":"2025-05-28T14:42:58.849Z"}
+{"environment":"development","level":"info","message":"Server started successfully","port":"5000","timestamp":"2025-05-28T14:42:58.852Z"}
+{"level":"info","message":"Successfully connected to PostgreSQL via Prisma","timestamp":"2025-05-28T14:43:02.522Z"}
+{"environment":"development","level":"info","message":"Server started successfully","port":"5000","timestamp":"2025-05-28T14:43:02.525Z"}
+{"level":"info","message":{"duration":"1956ms","ip":"::1","method":"PATCH","path":"/api/v1/users/user_2xgnBAYKxKMxR4gtThXitqHOQr4","status":400},"timestamp":"2025-05-28T14:43:22.961Z"}
+{"level":"info","message":{"duration":"954ms","ip":"::1","method":"PATCH","path":"/api/v1/users/user_2xgnBAYKxKMxR4gtThXitqHOQr4","status":200},"timestamp":"2025-05-28T14:43:43.341Z"}
+{"level":"info","message":{"duration":"476ms","ip":"::1","method":"PATCH","path":"/api/v1/users/user_2xgnBAYKxKMxR4gtThXitqHOQr4","status":200},"timestamp":"2025-05-28T14:43:52.255Z"}
+{"level":"info","message":{"duration":"714ms","ip":"::1","method":"PATCH","path":"/api/v1/users/user_2xgnBAYKxKMxR4gtThXitqHOQr4","status":200},"timestamp":"2025-05-28T14:44:02.724Z"}
+{"level":"info","message":"Successfully connected to PostgreSQL via Prisma","timestamp":"2025-05-28T14:47:02.072Z"}
+{"environment":"development","level":"info","message":"Server started successfully","port":"5000","timestamp":"2025-05-28T14:47:02.075Z"}
+{"level":"info","message":{"duration":"2618ms","ip":"::1","method":"PATCH","path":"/api/v1/users/user_2xgnBAYKxKMxR4gtThXitqHOQr4","status":200},"timestamp":"2025-05-28T14:53:28.622Z"}
+{"level":"info","message":{"duration":"483ms","ip":"::1","method":"PATCH","path":"/api/v1/users/user_2xgnBAYKxKMxR4gtThXitqHOQr4","status":200},"timestamp":"2025-05-28T14:53:31.917Z"}
+{"level":"info","message":{"duration":"718ms","ip":"::1","method":"PATCH","path":"/api/v1/users/user_2xgnBAYKxKMxR4gtThXitqHOQr4","status":200},"timestamp":"2025-05-28T14:56:54.907Z"}
+{"level":"info","message":{"duration":"541ms","ip":"::1","method":"PATCH","path":"/api/v1/users/user_2xgnBAYKxKMxR4gtThXitqHOQr4","status":200},"timestamp":"2025-05-28T14:56:57.791Z"}
+{"level":"info","message":{"duration":"490ms","ip":"::1","method":"PATCH","path":"/api/v1/users/user_2xgnBAYKxKMxR4gtThXitqHOQr4","status":200},"timestamp":"2025-05-28T14:56:59.544Z"}
+{"level":"info","message":"SIGINT received: initiating graceful shutdown","timestamp":"2025-05-28T14:57:38.243Z"}
+{"level":"info","message":"HTTP server closed","timestamp":"2025-05-28T14:57:38.244Z"}
+{"level":"info","message":"Prisma database connection closed","timestamp":"2025-05-28T14:57:38.250Z"}

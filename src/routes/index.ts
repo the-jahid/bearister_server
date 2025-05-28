@@ -1,115 +1,3 @@
-// import { Router, Request, Response, NextFunction } from 'express';
-// import clerkAuthenticate from '../middleware/clerkAuthenticate';
-// import handleUserWebhook from '../webhooks/clerkUserWebhook';
-
-// import { PrismaClient } from '@prisma/client';
-
-// const prisma = new PrismaClient();
-
-// const router = Router();
-// const API_VERSION = 'v1';
-// const BASE_PATH = `/api/${API_VERSION}`;
-
-// router.post('/api/userWebhook/clerk', handleUserWebhook );
-
-// router.get(`${BASE_PATH}/try`, clerkAuthenticate,  (req: Request, res: Response, next: NextFunction) => {
-//   console.log('Hello world');
-//   res.send('Hello world');
-// });
-
-// // 
-// // get user by ID
-// router.get(`${BASE_PATH}/getUser`, clerkAuthenticate,  async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-//   const userId = req.query.userId as string;
-
-//   if (!userId) {
-//     res.status(400).json({ error: 'User ID is required' });
-//     return;
-//   }
-
-//   try {
-//     const user = await prisma.user.findUnique({
-//       where: {
-//         id: userId,
-//       },
-//     });
-
-//     if (!user) {
-//       res.status(404).json({ error: 'User not found' });
-//       return;
-//     }
-
-//     res.json(user);
-//   } catch (error) {
-//     console.error('Error fetching user:', error);
-//     res.status(500).json({ error: 'Internal server error' });
-//   }
-// });
-
-
-// // update user by ID
-// router.patch(`${BASE_PATH}/updateUser`, clerkAuthenticate,  async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-//   const userId = req.query.userId as string;
-//   const updateData = req.body;
-
-//   if (!userId) {
-//     res.status(400).json({ error: 'User ID is required' });
-//     return;
-//   }
-
-//   try {
-//     const updatedUser = await prisma.user.update({
-//       where: {
-//         id: userId,
-//       },
-//       data: updateData,
-//     });
-
-//     res.json(updatedUser);
-//   } catch (error) {
-//     console.error('Error updating user:', error);
-//     res.status(500).json({ error: 'Internal server error' });
-//   }
-// });
-
-// // delete user by ID
-// router.delete(`${BASE_PATH}/deleteUser`, clerkAuthenticate,  async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-//   const userId = req.query.userId as string;
-
-//   if (!userId) {
-//     res.status(400).json({ error: 'User ID is required' });
-//     return;
-//   }
-
-//   try {
-//     await prisma.user.delete({
-//       where: {
-//         id: userId,
-//       },
-//     });
-
-//     res.json({ message: 'User deleted successfully' });
-//   } catch (error) {
-//     console.error('Error deleting user:', error);
-//     res.status(500).json({ error: 'Internal server error' });
-//   }
-// });
-
-
-// router.use((req: Request, res: Response) => {
-//   if (!req.path.startsWith(BASE_PATH) && req.path !== '/' && req.path !== '/health') {
-//     res.status(400).json({
-//       status: 'error',
-//       message: `Invalid API version. Use ${BASE_PATH}/*`,
-//       currentVersion: API_VERSION,
-//       pathAttempted: req.path
-//     });
-//   }
-// });
-
-// export default router;
-
-
 import { Router, Request, Response, NextFunction } from 'express';
 import { PrismaClient, PlanType, SubscriptionStatus } from '@prisma/client';
 import cron from 'node-cron';
@@ -126,8 +14,8 @@ const BASE_PATH = `/api/${API_VERSION}`;
 const PLAN_LIMITS = {
   BASIC: { messages: 20, documents: 0 },
   CORE: { messages: 100, documents: 10 },
-  ADVANCED: { messages: 500, documents: 50 },
-  PRO: { messages: -1, documents: -1 } // -1 means unlimited
+  ADVANCED: { messages: 700, documents: 50 },
+  PRO: { messages: 1500, documents: 400 } // -1 means unlimited
 };
 
 // Error response helper
@@ -338,19 +226,19 @@ router.post(`${BASE_PATH}/users`, clerkAuthenticate,
   }
 );
 
-// READ - Get user by ID
-router.get(`${BASE_PATH}/users/:id`, clerkAuthenticate,
+// READ - Get user by oauthId (main identifier)
+router.get(`${BASE_PATH}/users/:oauthId`, clerkAuthenticate,
   async (req: Request, res: Response): Promise<void> => {
     try {
-      const { id } = req.params;
+      const { oauthId } = req.params;
 
-      if (!id) {
-        sendError(res, 400, 'User ID is required');
+      if (!oauthId) {
+        sendError(res, 400, 'OAuth ID is required');
         return;
       }
 
       const user = await prisma.user.findUnique({
-        where: { id }
+        where: { oauthId }
       });
 
       if (!user) {
@@ -378,6 +266,33 @@ router.get(`${BASE_PATH}/users/email/:email`, clerkAuthenticate,
 
       const user = await prisma.user.findUnique({
         where: { email }
+      });
+
+      if (!user) {
+        sendError(res, 404, 'User not found');
+        return;
+      }
+
+      sendSuccess(res, user);
+    } catch (error) {
+      sendError(res, 500, 'Internal server error', error);
+    }
+  }
+);
+
+// READ - Get user by internal ID
+router.get(`${BASE_PATH}/users/id/:id`, clerkAuthenticate,
+  async (req: Request, res: Response): Promise<void> => {
+    try {
+      const { id } = req.params;
+
+      if (!id) {
+        sendError(res, 400, 'User ID is required');
+        return;
+      }
+
+      const user = await prisma.user.findUnique({
+        where: { id }
       });
 
       if (!user) {
@@ -434,17 +349,29 @@ router.get(`${BASE_PATH}/users`, clerkAuthenticate,
   }
 );
 
-// UPDATE - Update user
-router.patch(`${BASE_PATH}/users/:id`, clerkAuthenticate,
+// UPDATE - Update user by oauthId
+router.patch(`${BASE_PATH}/users/:oauthId`, clerkAuthenticate,
   async (req: Request, res: Response): Promise<void> => {
     try {
-      const { id } = req.params;
-      const updateData = req.body;
+      const { oauthId } = req.params;
+      const { 
+        incrementMessage, 
+        incrementDocument, 
+        messagesUsed, 
+        documentsUsed,
+        planType,
+        ...updateData 
+      } = req.body;
 
-      if (!id) {
-        sendError(res, 400, 'User ID is required');
+      if (!oauthId) {
+        sendError(res, 400, 'OAuth ID is required');
         return;
       }
+
+      // Remove fields that shouldn't be updated directly
+      delete updateData.id;
+      delete updateData.createdAt;
+      delete updateData.updatedAt;
 
       // Validate update data
       if (updateData.email && !isValidEmail(updateData.email)) {
@@ -452,7 +379,7 @@ router.patch(`${BASE_PATH}/users/:id`, clerkAuthenticate,
         return;
       }
 
-      if (updateData.planType && !isValidPlanType(updateData.planType)) {
+      if (planType && !isValidPlanType(planType)) {
         sendError(res, 400, 'Invalid plan type');
         return;
       }
@@ -464,7 +391,7 @@ router.patch(`${BASE_PATH}/users/:id`, clerkAuthenticate,
 
       // Check if user exists
       const existingUser = await prisma.user.findUnique({
-        where: { id }
+        where: { oauthId }
       });
 
       if (!existingUser) {
@@ -472,55 +399,141 @@ router.patch(`${BASE_PATH}/users/:id`, clerkAuthenticate,
         return;
       }
 
-      // If plan type is being updated, reset limits
-      if (updateData.planType && updateData.planType !== existingUser.planType) {
-        const limits = PLAN_LIMITS[updateData.planType as PlanType];
+      // Handle plan type changes with automatic subscription setup
+      if (planType && planType !== existingUser.planType) {
+        console.log(`Processing plan change from ${existingUser.planType} to ${planType} for user ${oauthId}`);
+        
+        const newPlan = planType as PlanType;
+        const limits = PLAN_LIMITS[newPlan];
+        
+        // Always reset usage limits for new plan
         updateData.messageLeft = limits.messages;
         updateData.documentLeft = limits.documents;
         updateData.messagesUsed = 0;
         updateData.documentsUsed = 0;
+        updateData.planType = newPlan;
+
+        const now = new Date();
+
+        // Handle different plan upgrade scenarios
+        if (newPlan === 'CORE' || newPlan === 'ADVANCED' || newPlan === 'PRO') {
+          // Upgrading to a paid plan
+          const subscriptionEnd = new Date(now);
+          subscriptionEnd.setMonth(subscriptionEnd.getMonth() + 1); // Add 1 month
+          
+          updateData.subscriptioStartDate = now; // Note: keeping the typo from your schema
+          updateData.subscriptionEndDate = subscriptionEnd;
+          updateData.subscriptionStatus = 'ACTIVE' as SubscriptionStatus;
+          
+          console.log(`User ${oauthId} upgraded to ${newPlan} plan. Subscription ends: ${subscriptionEnd}`);
+          
+        } else if (newPlan === 'BASIC') {
+          // Downgrading to BASIC
+          updateData.subscriptionStatus = 'CANCELED' as SubscriptionStatus;
+          updateData.subscriptionEndDate = null;
+          updateData.subscriptioStartDate = null;
+          
+          console.log(`User ${oauthId} downgraded to BASIC plan`);
+        }
       }
 
+      // Handle usage updates (only if not changing plan type)
+      if (!planType && (incrementMessage || incrementDocument || messagesUsed !== undefined || documentsUsed !== undefined)) {
+        // Handle incremental updates
+        if (incrementMessage === true) {
+          updateData.messagesUsed = existingUser.messagesUsed + 1;
+          // Only decrease if not unlimited (-1)
+          if (existingUser.messageLeft !== -1) {
+            updateData.messageLeft = Math.max(0, existingUser.messageLeft - 1);
+          }
+        }
+
+        if (incrementDocument === true) {
+          updateData.documentsUsed = existingUser.documentsUsed + 1;
+          // Only decrease if not unlimited (-1)
+          if (existingUser.documentLeft !== -1) {
+            updateData.documentLeft = Math.max(0, existingUser.documentLeft - 1);
+          }
+        }
+
+        // Handle direct usage updates (only if not using increment)
+        if (incrementMessage !== true && messagesUsed !== undefined) {
+          const newMessagesUsed = Math.max(0, messagesUsed);
+          updateData.messagesUsed = newMessagesUsed;
+          // Only adjust if not unlimited (-1)
+          if (existingUser.messageLeft !== -1) {
+            const usageDifference = newMessagesUsed - existingUser.messagesUsed;
+            updateData.messageLeft = Math.max(0, existingUser.messageLeft - usageDifference);
+          }
+        }
+
+        if (incrementDocument !== true && documentsUsed !== undefined) {
+          const newDocumentsUsed = Math.max(0, documentsUsed);
+          updateData.documentsUsed = newDocumentsUsed;
+          // Only adjust if not unlimited (-1)
+          if (existingUser.documentLeft !== -1) {
+            const usageDifference = newDocumentsUsed - existingUser.documentsUsed;
+            updateData.documentLeft = Math.max(0, existingUser.documentLeft - usageDifference);
+          }
+        }
+      }
+
+      // Handle manual subscription date updates (if provided explicitly and not auto-generated)
+      if (updateData.subscriptioStartDate && typeof updateData.subscriptioStartDate === 'string') {
+        updateData.subscriptioStartDate = new Date(updateData.subscriptioStartDate);
+      }
+      if (updateData.subscriptionEndDate && typeof updateData.subscriptionEndDate === 'string') {
+        updateData.subscriptionEndDate = new Date(updateData.subscriptionEndDate);
+      }
+
+      // Check if there are any valid updates
+      if (Object.keys(updateData).length === 0) {
+        sendError(res, 400, 'No valid updates provided');
+        return;
+      }
+
+      console.log('Update data being sent to Prisma:', updateData);
+
       const updatedUser = await prisma.user.update({
-        where: { id },
+        where: { oauthId },
         data: updateData
       });
 
       sendSuccess(res, updatedUser, 'User updated successfully');
     } catch (error) {
-      if (typeof error === 'object' && error !== null && 'code' in error && (error as any).code === 'P2002') {
-        sendError(res, 409, 'Email or oauthId already exists');
-        return;
+      console.error('Error in update user endpoint:', error);
+      
+      if (typeof error === 'object' && error !== null && 'code' in error) {
+        const prismaError = error as any;
+        if (prismaError.code === 'P2002') {
+          sendError(res, 409, 'Email or oauthId already exists');
+          return;
+        }
+        if (prismaError.code === 'P2025') {
+          sendError(res, 404, 'User not found');
+          return;
+        }
       }
       sendError(res, 500, 'Internal server error', error);
     }
   }
 );
 
-// UPDATE - Update subscription
-router.patch(`${BASE_PATH}/users/:id/subscription`, clerkAuthenticate,
+
+// DELETE - Delete user by oauthId
+router.delete(`${BASE_PATH}/users/:oauthId`, clerkAuthenticate,
   async (req: Request, res: Response): Promise<void> => {
     try {
-      const { id } = req.params;
-      const { planType, subscriptionStatus, durationMonths = 1 } = req.body;
+      const { oauthId } = req.params;
 
-      if (!id) {
-        sendError(res, 400, 'User ID is required');
+      if (!oauthId) {
+        sendError(res, 400, 'OAuth ID is required');
         return;
       }
 
-      if (!planType || !isValidPlanType(planType)) {
-        sendError(res, 400, 'Valid plan type is required');
-        return;
-      }
-
-      if (!subscriptionStatus || !isValidSubscriptionStatus(subscriptionStatus)) {
-        sendError(res, 400, 'Valid subscription status is required');
-        return;
-      }
-
+      // Check if user exists
       const existingUser = await prisma.user.findUnique({
-        where: { id }
+        where: { oauthId }
       });
 
       if (!existingUser) {
@@ -528,97 +541,26 @@ router.patch(`${BASE_PATH}/users/:id/subscription`, clerkAuthenticate,
         return;
       }
 
-      const now = new Date();
-      const endDate = new Date(now.getTime() + (durationMonths * 30 * 24 * 60 * 60 * 1000));
-      const limits = PLAN_LIMITS[planType];
-
-      const updatedUser = await prisma.user.update({
-        where: { id },
-        data: {
-          planType,
-          subscriptionStatus,
-          subscriptioStartDate: now, // Note: keeping the typo from your schema
-          subscriptionEndDate: endDate,
-          messageLeft: limits.messages,
-          documentLeft: limits.documents,
-          messagesUsed: 0,
-          documentsUsed: 0
-        }
+      await prisma.user.delete({
+        where: { oauthId }
       });
 
-      sendSuccess(res, updatedUser, 'Subscription updated successfully');
+      sendSuccess(res, { id: existingUser.id, oauthId }, 'User deleted successfully');
     } catch (error) {
+      if (typeof error === 'object' && error !== null && 'code' in error) {
+        const prismaError = error as any;
+        if (prismaError.code === 'P2025') {
+          sendError(res, 404, 'User not found');
+          return;
+        }
+      }
       sendError(res, 500, 'Internal server error', error);
     }
   }
 );
 
-// UPDATE - Consume usage (messages/documents)
-router.patch(`${BASE_PATH}/users/:id/usage`, clerkAuthenticate,
-  async (req: Request, res: Response): Promise<void> => {
-    try {
-      const { id } = req.params;
-      const { type, amount = 1 } = req.body;
-
-      if (!id) {
-        sendError(res, 400, 'User ID is required');
-        return;
-      }
-
-      if (!type || !['message', 'document'].includes(type)) {
-        sendError(res, 400, 'Type must be either "message" or "document"');
-        return;
-      }
-
-      if (amount < 1) {
-        sendError(res, 400, 'Amount must be positive');
-        return;
-      }
-
-      const user = await prisma.user.findUnique({
-        where: { id }
-      });
-
-      if (!user) {
-        sendError(res, 404, 'User not found');
-        return;
-      }
-
-      // Check if user has enough usage left
-      const currentLeft = type === 'message' ? user.messageLeft : user.documentLeft;
-      if (currentLeft !== -1 && currentLeft < amount) {
-        sendError(res, 403, `Insufficient ${type} quota remaining`);
-        return;
-      }
-
-      // Update usage
-      const updateData: any = {};
-      if (type === 'message') {
-        updateData.messagesUsed = user.messagesUsed + amount;
-        if (user.messageLeft !== -1) {
-          updateData.messageLeft = user.messageLeft - amount;
-        }
-      } else {
-        updateData.documentsUsed = user.documentsUsed + amount;
-        if (user.documentLeft !== -1) {
-          updateData.documentLeft = user.documentLeft - amount;
-        }
-      }
-
-      const updatedUser = await prisma.user.update({
-        where: { id },
-        data: updateData
-      });
-
-      sendSuccess(res, updatedUser, `${type} usage updated successfully`);
-    } catch (error) {
-      sendError(res, 500, 'Internal server error', error);
-    }
-  }
-);
-
-// DELETE - Delete user
-router.delete(`${BASE_PATH}/users/:id`, clerkAuthenticate,
+// DELETE - Delete user by internal ID (alternative endpoint)
+router.delete(`${BASE_PATH}/users/id/:id`, clerkAuthenticate,
   async (req: Request, res: Response): Promise<void> => {
     try {
       const { id } = req.params;
@@ -642,60 +584,15 @@ router.delete(`${BASE_PATH}/users/:id`, clerkAuthenticate,
         where: { id }
       });
 
-      sendSuccess(res, null, 'User deleted successfully');
+      sendSuccess(res, { id, oauthId: existingUser.oauthId }, 'User deleted successfully');
     } catch (error) {
-      sendError(res, 500, 'Internal server error', error);
-    }
-  }
-);
-
-// GET - User statistics
-router.get(`${BASE_PATH}/users/:id/stats`, clerkAuthenticate,
-  async (req: Request, res: Response): Promise<void> => {
-    try {
-      const { id } = req.params;
-
-      if (!id) {
-        sendError(res, 400, 'User ID is required');
-        return;
-      }
-
-      const user = await prisma.user.findUnique({
-        where: { id }
-      });
-
-      if (!user) {
-        sendError(res, 404, 'User not found');
-        return;
-      }
-
-      const stats = {
-        userId: user.id,
-        planType: user.planType,
-        subscriptionStatus: user.subscriptionStatus,
-        usage: {
-          messages: {
-            used: user.messagesUsed,
-            remaining: user.messageLeft === -1 ? 'unlimited' : user.messageLeft,
-            total: user.messageLeft === -1 ? 'unlimited' : user.messagesUsed + user.messageLeft
-          },
-          documents: {
-            used: user.documentsUsed,
-            remaining: user.documentLeft === -1 ? 'unlimited' : user.documentLeft,
-            total: user.documentLeft === -1 ? 'unlimited' : user.documentsUsed + user.documentLeft
-          }
-        },
-        subscription: {
-          startDate: user.subscriptioStartDate,
-          endDate: user.subscriptionEndDate,
-          daysRemaining: user.subscriptionEndDate 
-            ? Math.ceil((user.subscriptionEndDate.getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24))
-            : null
+      if (typeof error === 'object' && error !== null && 'code' in error) {
+        const prismaError = error as any;
+        if (prismaError.code === 'P2025') {
+          sendError(res, 404, 'User not found');
+          return;
         }
-      };
-
-      sendSuccess(res, stats);
-    } catch (error) {
+      }
       sendError(res, 500, 'Internal server error', error);
     }
   }
@@ -715,10 +612,3 @@ router.use((req: Request, res: Response) => {
 });
 
 export default router;
-
-
-
-
-
-
-
