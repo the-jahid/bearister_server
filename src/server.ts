@@ -2,9 +2,12 @@ import app from './app';
 import prisma from './config/database';
 import { logger } from './utils/logger';
 import { handleUncaughtException, handleUnhandledRejection, logServerStart } from './utils/serverUtils';
+import cors from 'cors'; // Import the cors middleware
 
 const PORT = process.env.PORT || 3000;
 const NODE_ENV = process.env.NODE_ENV || 'development';
+
+app.use(cors()); // Apply the cors middleware to allow all origins
 
 // Process-level error handlers
 process.on('uncaughtException', (err) => {

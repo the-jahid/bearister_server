@@ -350,7 +350,7 @@ router.get(`${BASE_PATH}/users`, clerkAuthenticate,
 );
 
 // UPDATE - Update user by oauthId
-router.patch(`${BASE_PATH}/users/:oauthId`, clerkAuthenticate,
+router.patch(`${BASE_PATH}/users/:oauthId`, 
   async (req: Request, res: Response): Promise<void> => {
     try {
       const { oauthId } = req.params;
