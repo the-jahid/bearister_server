@@ -12,10 +12,10 @@ const BASE_PATH = `/api/${API_VERSION}`;
 
 // Plan limits configuration
 const PLAN_LIMITS = {
-  BASIC: { messages: 20, documents: 0 },
-  CORE: { messages: 100, documents: 10 },
-  ADVANCED: { messages: 700, documents: 50 },
-  PRO: { messages: 1500, documents: 400 } // -1 means unlimited
+  BASIC: { messages: 100, documents: 0 },
+  CORE: { messages: 250, documents: 4 },
+  ADVANCED: { messages: 600, documents: 12 },
+  PRO: { messages: 1000, documents: 20 }
 };
 
 // Error response helper
